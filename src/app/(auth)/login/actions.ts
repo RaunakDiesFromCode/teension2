@@ -46,7 +46,7 @@ export async function login(
       sessionCookie.attributes,
     );
 
-    return redirect("/dashboard");
+    return redirect("/");
 
   } catch (error) {
     if (isRedirectError(error)) throw error;

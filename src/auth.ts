@@ -1,8 +1,10 @@
+// src/auth.ts
+
 import { PrismaAdapter } from "@lucia-auth/adapter-prisma";
-import { Lucia, Session, User } from "lucia";
-import { cookies } from "next/headers";
-import { cache } from "react";
 import prisma from "./lib/prisma";
+import { Lucia, Session, User } from "lucia";
+import { cache } from "react";
+import { cookies } from "next/headers";
 
 const adapter = new PrismaAdapter(prisma.session, prisma.user);
 
@@ -20,6 +22,11 @@ export const lucia = new Lucia(adapter, {
       displayName: databaseUserAttributes.displayName,
       avatarUrl: databaseUserAttributes.avatarUrl,
       googleId: databaseUserAttributes.googleId,
+      coverUrl: databaseUserAttributes.coverUrl,
+      OP: databaseUserAttributes.OP,
+      verified: databaseUserAttributes.verified,
+      stars: databaseUserAttributes.stars,
+      tribe: databaseUserAttributes.tribe,
     };
   },
 });
@@ -37,24 +44,75 @@ interface DatabaseUserAttributes {
   displayName: string;
   avatarUrl: string | null;
   googleId: string | null;
+  coverUrl: string | null;
+  OP: boolean;
+  verified: boolean;
+  stars: number;
+  tribe: string;
 }
+
+// export const validateRequest = cache(
+//   async (): Promise<
+//     | {
+//         user: User;
+//         session: Session;
+//       }
+//     | {
+//         user: null;
+//         session: null;
+//       }
+//   > => {
+//     const sessionId = cookies().get(lucia.sessionCookieName)?.value ?? null;
+
+//     if (!sessionId) {
+//       return { user: null, session: null };
+//     }
+
+//     const result = await lucia.validateSession(sessionId);
+
+//     try {
+//       if (result.session && result.session.fresh) {
+//         const sessionCookie = lucia.createSessionCookie(result.session.id);
+//         cookies().set(
+//           sessionCookie.name,
+//           sessionCookie.value,
+//           sessionCookie.attributes,
+//         );
+//       }
+//       if (!result.session) {
+//         const sessionCookie = lucia.createBlankSessionCookie();
+//         cookies().set(
+//           sessionCookie.name,
+//           sessionCookie.value,
+//           sessionCookie.attributes,
+//         );
+//       }
+//     } catch {}
+
+//     return result;
+//   },
+// );
 
 export const validateRequest = cache(
   async (): Promise<
-    { user: User; session: Session } | { user: null; session: null }
+    | {
+        user: User | null;
+        session: Session | null;
+      }
+    | {
+        user: null;
+        session: null;
+      }
   > => {
     const sessionId = cookies().get(lucia.sessionCookieName)?.value ?? null;
 
     if (!sessionId) {
-      return {
-        user: null,
-        session: null,
-      };
+      return { user: null, session: null };
     }
 
-    const result = await lucia.validateSession(sessionId);
-
     try {
+      const result = await lucia.validateSession(sessionId);
+
       if (result.session && result.session.fresh) {
         const sessionCookie = lucia.createSessionCookie(result.session.id);
         cookies().set(
@@ -62,8 +120,7 @@ export const validateRequest = cache(
           sessionCookie.value,
           sessionCookie.attributes,
         );
-      }
-      if (!result.session) {
+      } else if (!result.session) {
         const sessionCookie = lucia.createBlankSessionCookie();
         cookies().set(
           sessionCookie.name,
@@ -71,8 +128,11 @@ export const validateRequest = cache(
           sessionCookie.attributes,
         );
       }
-    } catch {}
 
-    return result;
+      return result;
+    } catch (error) {
+      console.error("Failed to validate session:", error);
+      return { user: null, session: null };
+    }
   },
 );
