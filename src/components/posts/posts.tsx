@@ -28,7 +28,7 @@ export default function Posts({ post }: PostsProps) {
             href={`/posts/${post.id}`}
             className="block text-xs text-muted-foreground hover:underline"
           >
-            {/* {formatReletiveDate(post.createdAt)} */}
+            {formatReletiveDate(post.createdAt)}
           </Link>
         </div>
       </div>
