@@ -12,12 +12,6 @@ export default function PostsLoadingSkeleton({
       {[...Array(quantity)].map((_, index) => (
         <PostLoadingSkeleton key={index} />
       ))}
-    {/* <div className="space-y-5">
-      <PostLoadingSkeleton />
-      <PostLoadingSkeleton />
-      <PostLoadingSkeleton />
-      <PostLoadingSkeleton /> 
-      <PostLoadingSkeleton /> */}
     </div>
   );
 }

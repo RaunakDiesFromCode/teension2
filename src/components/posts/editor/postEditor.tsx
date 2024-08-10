@@ -9,10 +9,14 @@ import { useSession } from "@/app/(main)/SessionProvider";
 import React from "react";
 import { Button } from "@/components/ui/button";
 import { SendHorizontal } from "lucide-react";
-import "./styles.css"
+import "./styles.css";
+import { useSubmitPostMutation } from "./mutations";
+import LoadingButton from "@/components/LoadingButton";
 
 export default function PostEditor() {
   const { user } = useSession();
+
+  const mutation = useSubmitPostMutation();
 
   const editor = useEditor({
     extensions: [
@@ -31,8 +35,12 @@ export default function PostEditor() {
       blockSeparator: "\n",
     }) || "";
 
-  async function onSubmit() {
-    await submitPost(input);
+  function onSubmit() {
+    mutation.mutate(input, {
+      onSuccess: () => {
+        editor?.commands.clearContent();
+      },
+    });
     editor?.commands.clearContent();
   }
 
@@ -46,15 +54,16 @@ export default function PostEditor() {
         />
       </div>
       <div className="flex justify-end">
-        <Button
+        <LoadingButton
           variant="ghost"
+          loading={mutation.isPending}
           onClick={onSubmit}
           disabled={!input.trim()}
           className="mt-3 flex items-center gap-2"
         >
           Post
           <SendHorizontal />
-        </Button>
+        </LoadingButton>
       </div>
     </div>
   );
