@@ -17,7 +17,7 @@ export default async function Layout({
     <SessionProvider value={session}>
       <div className="flex min-h-screen flex-col">
         <Navbar />
-        <div className="mx-auto max-w-7xl p-5 flex w-full grow gap-5">
+        <div className="mx-auto max-w-7xl py-5 px-3 sm:px-0 flex w-full grow gap-5">
           <MenuBar className="sticky top-[30%] h-full hidden sm:block flex-none space-y-3 rounded-2xl bg-card px-3 py-5 lg:px-5 xl:w-80"/>
           {children}
         </div>

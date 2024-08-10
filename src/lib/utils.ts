@@ -32,9 +32,15 @@ function isVerified(post: PostData): boolean {
 export function badge(post: PostData) {
   if (isOP(post)) {
     return "OP";
-  }
-  else if (isVerified(post)) {
+  } else if (isVerified(post)) {
     return "Verified";
   }
   return "";
+}
+
+export function formatNumber(n: number): string {
+  return Intl.NumberFormat("en-US", {
+    notation: "compact",
+    maximumFractionDigits: 1,
+  }).format(n);
 }
