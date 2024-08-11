@@ -15,7 +15,7 @@ export default function Posts({ post }: PostsProps) {
   const {user} = useSession();
 
   return (
-    <article className="group/post space-y-3 rounded-2xl bg-card p-5 shadow-sm">
+    <article className="group/post space-y-3 rounded-2xl bg-card p-5 shadow-[0_3px_15px_rgb(0,0,0,0.12)]">
       <div className="flex justify-between gap-3">
         <div className="flex flex-wrap gap-2">
           <Link href={`/users/${post.user.username}`}>
@@ -41,7 +41,10 @@ export default function Posts({ post }: PostsProps) {
           </div>
         </div>
         {post.user.id === user?.id && (
-          <PostMoreButton post={post} className="opacity-0 transition-opacity group-hover/post:opacity-100" />
+          <PostMoreButton
+            post={post}
+            className="opacity-0 transition-opacity group-hover/post:opacity-100"
+          />
         )}
       </div>
       <div className="whitespace-pre-line break-words">{post.content}</div>

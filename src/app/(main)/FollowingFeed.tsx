@@ -1,16 +1,14 @@
 "use client";
 
+import InfiniteScrollContainer from "@/components/InfiniteScrollContainer";
+import Post from "@/components/posts/post";
+import PostsLoadingSkeleton from "@/components/posts/PostsLoadingSkeleton";
 import kyInstance from "@/lib/ky";
 import { PostsPage } from "@/lib/types";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { Loader2 } from "lucide-react";
-import Post from "@/components/posts/post";
-import { Button } from "@/components/ui/button";
-import InfiniteScrollContainer from "@/components/InfiniteScrollContainer";
-import PostsLoadingSkeleton from "@/components/posts/PostsLoadingSkeleton";
-import DeletePostDialogue from "@/components/posts/DeletePostDialogue";
 
-export default function ForYouFeed() {
+export default function FollowingFeed() {
   const {
     data,
     fetchNextPage,
@@ -19,11 +17,11 @@ export default function ForYouFeed() {
     isFetchingNextPage,
     status,
   } = useInfiniteQuery({
-    queryKey: ["post-feed", "for-you"],
+    queryKey: ["post-feed", "following"],
     queryFn: ({ pageParam }) =>
       kyInstance
         .get(
-          "/api/posts/for-you",
+          "/api/posts/following",
           pageParam ? { searchParams: { cursor: pageParam } } : {},
         )
         .json<PostsPage>(),
@@ -34,19 +32,15 @@ export default function ForYouFeed() {
   const posts = data?.pages.flatMap((page) => page.posts) || [];
 
   if (status === "pending") {
-    return <PostsLoadingSkeleton quantity={10} />;
-  }
-
-  if (status === "success" && !posts.length && hasNextPage) {
-    return (
-      <p className="to-muted-foreground text-center">Damn! feels empty.</p>
-    );
+    return <PostsLoadingSkeleton />;
   }
 
   if (status === "success" && !posts.length && !hasNextPage) {
     return (
       <p className="text-center text-muted-foreground">
-        This used to be a bustling place.
+        {`Sad to see you\'re not following anyone yet.`}
+        <br />
+        {` Once you do, their posts will show up here.`}
       </p>
     );
   }
@@ -65,10 +59,9 @@ export default function ForYouFeed() {
       onBottomReached={() => hasNextPage && !isFetching && fetchNextPage()}
     >
       {posts.map((post) => (
-        <Post key={post.id} post={post}/>
+        <Post key={post.id} post={post} />
       ))}
-      {/* {isFetchingNextPage && <Loader2 className="mx-auto my-3 animate-spin" />} */}
-      {isFetchingNextPage && <PostsLoadingSkeleton quantity={2} />}
+      {isFetchingNextPage && <Loader2 className="mx-auto my-3 animate-spin" />}
     </InfiniteScrollContainer>
   );
 }
