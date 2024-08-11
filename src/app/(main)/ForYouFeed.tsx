@@ -69,7 +69,6 @@ export default function ForYouFeed() {
       ))}
       {/* {isFetchingNextPage && <Loader2 className="mx-auto my-3 animate-spin" />} */}
       {isFetchingNextPage && <PostsLoadingSkeleton quantity={2} />}
-      {/* <DeletePostDialogue open onClose={() => {}} post={posts[0]} /> */}
     </InfiniteScrollContainer>
   );
 }

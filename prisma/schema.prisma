@@ -10,14 +10,14 @@ datasource db {
 }
 
 model User {
-  id           String    @id
+  id           String    @id @default(cuid())
   username     String    @unique
   displayName  String
   email        String?   @unique
   passwordHash String?
   googleId     String?   @unique @map("googleID")
-  avatarUrl    String?   @unique @map("avatarURL")
-  coverUrl     String?   @unique @map("coverURL")
+  avatarUrl    String?   @map("avatarURL")
+  coverUrl     String?   @map("coverURL")
   bio          String?
   createdAt    DateTime  @default(now())
   op           Boolean?  @default(false) @map("OP")
@@ -26,17 +26,29 @@ model User {
   tribe        String?   @default("rookie") @map("tribe")
   sessions     Session[]
   posts        Post[]
+  following    Follow[]  @relation("Following")
+  followers    Follow[]  @relation("Followers")
 
   @@map("users")
 }
 
 model Session {
-  id        String   @id
+  id        String   @id @default(cuid())
   userId    String
   expiresAt DateTime
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@map("sessions")
+}
+
+model Follow {
+  followerId  String
+  follower    User   @relation("Following", fields: [followerId], references: [id], onDelete: Cascade)
+  followingId String
+  following   User   @relation("Followers", fields: [followingId], references: [id], onDelete: Cascade)
+
+  @@unique([followerId, followingId])
+  @@map("follows")
 }
 
 model Post {
