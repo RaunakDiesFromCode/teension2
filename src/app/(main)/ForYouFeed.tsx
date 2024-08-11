@@ -4,10 +4,11 @@ import kyInstance from "@/lib/ky";
 import { PostsPage } from "@/lib/types";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { Loader2 } from "lucide-react";
-import Post from "@/components/posts/posts";
+import Post from "@/components/posts/post";
 import { Button } from "@/components/ui/button";
 import InfiniteScrollContainer from "@/components/InfiniteScrollContainer";
 import PostsLoadingSkeleton from "@/components/posts/PostsLoadingSkeleton";
+import DeletePostDialogue from "@/components/posts/DeletePostDialogue";
 
 export default function ForYouFeed() {
   const {
@@ -33,13 +34,13 @@ export default function ForYouFeed() {
   const posts = data?.pages.flatMap((page) => page.posts) || [];
 
   if (status === "pending") {
-    return <PostsLoadingSkeleton quantity={10}/>
+    return <PostsLoadingSkeleton quantity={10} />;
   }
 
-  if (status === "success" && !posts.length && hasNextPage) { 
-    return <p className="text-center to-muted-foreground">
-      Damn! feels empty.
-    </p>
+  if (status === "success" && !posts.length && hasNextPage) {
+    return (
+      <p className="to-muted-foreground text-center">Damn! feels empty.</p>
+    );
   }
 
   if (status === "success" && !posts.length && !hasNextPage) {
@@ -67,7 +68,8 @@ export default function ForYouFeed() {
         <Post key={post.id} post={post} />
       ))}
       {/* {isFetchingNextPage && <Loader2 className="mx-auto my-3 animate-spin" />} */}
-      {isFetchingNextPage && <PostsLoadingSkeleton quantity={2}/>}
+      {isFetchingNextPage && <PostsLoadingSkeleton quantity={2} />}
+      {/* <DeletePostDialogue open onClose={() => {}} post={posts[0]} /> */}
     </InfiniteScrollContainer>
   );
 }
