@@ -1,12 +1,13 @@
 import { validateRequest } from "@/auth";
 import prisma from "@/lib/prisma";
 import { getUserDataSelect } from "@/lib/types";
-import { badge, formatNumber } from "@/lib/utils";
-import { CircleCheck, Crown, Loader2 } from "lucide-react";
+import { formatNumber } from "@/lib/utils";
+import { Loader2 } from "lucide-react";
 import { unstable_cache } from "next/cache";
 import Link from "next/link";
 import { Suspense } from "react";
 import FollowButton from "./FollowButton";
+import UserTooltip from "./UserTooltip";
 import UserAvatar from "./userAvatar";
 
 export default function TrendsSidebar() {
@@ -45,24 +46,22 @@ async function WhoToFollow() {
       <div className="text-xl font-bold">Who to follow</div>
       {usersToFollow.map((user) => (
         <div key={user.id} className="flex items-center justify-between gap-3">
-          <Link
-            href={`/users/${user.username}`}
-            className="flex items-center gap-3"
-          >
-            <UserAvatar avatarUrl={user.avatarUrl} className="flex-none" />
-            <div>
-              <p className="line-clamp-1 flex items-center gap-1 break-all font-semibold hover:underline">
-                {user.displayName}
-                {badge(user) == "OP" && <Crown size={17} color="gold" />}
-                {badge(user) == "Verified" && (
-                  <CircleCheck size={17} color="#1F75FE" />
-                )}
-              </p>
-              <p className="line-clamp-1 break-all text-muted-foreground">
-                @{user.username}
-              </p>
-            </div>
-          </Link>
+          <UserTooltip user={user}>
+            <Link
+              href={`/users/${user.username}`}
+              className="flex items-center gap-3"
+            >
+              <UserAvatar avatarUrl={user.avatarUrl} className="flex-none" />
+              <div>
+                <p className="line-clamp-1 break-all font-semibold hover:underline">
+                  {user.displayName}
+                </p>
+                <p className="line-clamp-1 break-all text-muted-foreground">
+                  @{user.username}
+                </p>
+              </div>
+            </Link>
+          </UserTooltip>
           <FollowButton
             userId={user.id}
             initialState={{
