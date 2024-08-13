@@ -7,7 +7,11 @@ import Post from "@/components/posts/post";
 import InfiniteScrollContainer from "@/components/InfiniteScrollContainer";
 import PostsLoadingSkeleton from "@/components/posts/PostsLoadingSkeleton";
 
-export default function ForYouFeed() {
+interface UserPostsProps {
+  userId: string;
+}
+
+export default function UserPosts({ userId }: UserPostsProps) {
   const {
     data,
     fetchNextPage,
@@ -16,11 +20,11 @@ export default function ForYouFeed() {
     isFetchingNextPage,
     status,
   } = useInfiniteQuery({
-    queryKey: ["post-feed", "for-you"],
+    queryKey: ["post-feed", "user-posts", userId],
     queryFn: ({ pageParam }) =>
       kyInstance
         .get(
-          "/api/posts/for-you",
+          `/api/users/${userId}/posts`,
           pageParam ? { searchParams: { cursor: pageParam } } : {},
         )
         .json<PostsPage>(),
@@ -43,7 +47,7 @@ export default function ForYouFeed() {
   if (status === "success" && !posts.length && !hasNextPage) {
     return (
       <p className="text-center text-muted-foreground">
-        This used to be a bustling place.
+        He never posts anything...
       </p>
     );
   }
@@ -62,9 +66,8 @@ export default function ForYouFeed() {
       onBottomReached={() => hasNextPage && !isFetching && fetchNextPage()}
     >
       {posts.map((post) => (
-        <Post key={post.id} post={post}/>
+        <Post key={post.id} post={post} />
       ))}
-      {/* {isFetchingNextPage && <Loader2 className="mx-auto my-3 animate-spin" />} */}
       {isFetchingNextPage && <PostsLoadingSkeleton quantity={2} />}
     </InfiniteScrollContainer>
   );

@@ -2,23 +2,24 @@ import Image from "next/image";
 import avatarPlaceholder from "@/assets/avatar-placeholder.png";
 import { cn } from "@/lib/utils";
 import { User } from "lucide-react";
+import { Button } from "./ui/button";
 
-interface UserAvatarProps {
-  avatarUrl: string | null | undefined;
+interface UserCoverProps {
+  coverUrl: string | null | undefined;
   size?: number;
   className?: string;
 }
 
-export default function UserAvatar({
-  avatarUrl,
+export default function UserCover({
+  coverUrl,
   size,
   className,
-}: UserAvatarProps) {
+}: UserCoverProps) {
   return (
     <>
-      {avatarUrl ? (
+      {coverUrl ? (
         <Image
-          src={avatarUrl}
+          src={coverUrl}
           alt="User"
           width={size ?? 48}
           height={size ?? 48}
@@ -28,13 +29,8 @@ export default function UserAvatar({
           )}
         />
       ) : (
-        <div className={`bg-blue-300 rounded-full w-fit h-fit `}>
-          <div className={`flex justify-center items-center rounded-full p-2`}>
-            <User size={size}/>
-          </div>
-        </div>
+        <div className="bg-blue-400 w-full h-60 rounded-md"></div>
       )}
     </>
   );
 }
-

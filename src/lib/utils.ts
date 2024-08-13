@@ -2,7 +2,7 @@ import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
 import { formatDate, formatDistanceToNowStrict } from "date-fns";
 import { User } from "lucia";
-import { PostData } from "./types";
+import { UserData } from "./types";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -20,19 +20,19 @@ export function formatReletiveDate(from: Date) {
 }
 
 // Function to check if the user is the Original Poster (OP)
-function isOP(post: PostData): boolean {
-  return post.user.op === true;
+function isOP(user: UserData): boolean {
+  return user.op === true;
 }
 
 // Function to check if the user is verified
-function isVerified(post: PostData): boolean {
-  return post.user.verified === true;
+function isVerified(user: UserData): boolean {
+  return user.verified === true;
 }
 
-export function badge(post: PostData) {
-  if (isOP(post)) {
+export function badge(user: UserData) {
+  if (isOP(user)) {
     return "OP";
-  } else if (isVerified(post)) {
+  } else if (isVerified(user)) {
     return "Verified";
   }
   return "";

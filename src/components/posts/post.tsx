@@ -27,9 +27,9 @@ export default function Posts({ post }: PostsProps) {
               className="flex items-center gap-1 font-medium hover:underline"
             >
               {post.user.displayName}
-              {badge(post) == "OP" && <Crown size={17} color="gold" />}
-              {badge(post) == "Verified" && (
-                <CircleCheck size={17} color="blue" />
+              {badge(post.user) == "OP" && <Crown size={17} color="gold" />}
+              {badge(post.user) == "Verified" && (
+                <CircleCheck size={17} color="#1F75FE" />
               )}
             </Link>
             <Link
