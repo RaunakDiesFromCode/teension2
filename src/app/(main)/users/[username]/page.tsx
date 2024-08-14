@@ -15,6 +15,7 @@ import { notFound } from "next/navigation";
 import { cache } from "react";
 import UserPosts from "./UserPosts";
 import Linkify from "@/components/Linkify";
+import EditProfileButton from "./EditProfileButton";
 
 interface pageProps {
   params: { username: string };
@@ -52,9 +53,7 @@ export default async function Page({ params: { username } }: pageProps) {
 
   if (!loggedInUser)
     return (
-      <p className="text-destructive">
-        You are not allowed to do such sorcery
-      </p>
+      <p className="text-destructive">You are not allowed to do such sorcery</p>
     );
 
   const user = await getUser(username, loggedInUser.id);
@@ -90,13 +89,13 @@ async function UserProfile({ user, loggedInUserId }: UserProfileProps) {
 
   return (
     <div className="h-fit w-full space-y-5 rounded-2xl bg-card py-5">
-      <div className="-mb-28 h-fit w-full">
-        <UserCover coverUrl={user.coverUrl} />
-        <div className="mx-auto w-fit -translate-y-[50%] rounded-full bg-background p-1.5">
+      <div className="relative h-fit w-full">
+        <UserCover coverUrl={user.coverUrl} size={10000} />
+        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2 transform rounded-full bg-background p-1.5">
           <UserAvatar
             avatarUrl={user.avatarUrl}
             size={200}
-            className="mx-auto size-full max-h-60 min-w-60 rounded-full"
+            className="max-h-60 min-w-60 rounded-full"
           />
         </div>
       </div>
@@ -105,7 +104,7 @@ async function UserProfile({ user, loggedInUserId }: UserProfileProps) {
         <div className="mx-auto me-auto space-y-3">
           <div className="h-fit text-center">
             {/* -mt-28 */}
-            <h1 className="mx-auto flex w-full items-center gap-1 text-3xl font-bold">
+            <h1 className="mx-auto mt-32 flex w-full items-center gap-1 text-3xl font-bold">
               {user.displayName}
               {badge(user) == "OP" && <Crown size={20} color="gold" />}
               {badge(user) == "Verified" && (
@@ -116,15 +115,16 @@ async function UserProfile({ user, loggedInUserId }: UserProfileProps) {
         </div>
 
         <div className="rounded-md p-3 text-muted-foreground shadow-[0_3px_15px_rgb(0,0,0,0.12)]">
-          <div className="flex justify-between">
+          <div className="my-2 flex items-center justify-between">
             <div>
               <FollowerCount userId={user.id} initialState={followerInfo} />
             </div>
             <div>
               {user.id === loggedInUserId ? (
-                <Button className="rounded-full p-2">
-                  <Pencil />
-                </Button>
+                // <Button className="rounded-full p-2">
+                //   <Pencil />
+                // </Button>
+                <EditProfileButton user={user} />
               ) : (
                 <FollowButton userId={user.id} initialState={followerInfo} />
               )}

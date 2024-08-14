@@ -19,32 +19,23 @@ export default function Posts({ post }: PostsProps) {
     <article className="group/post space-y-3 rounded-2xl bg-card p-5 shadow-[0_3px_15px_rgb(0,0,0,0.12)]">
       <div className="flex justify-between gap-3">
         <div className="flex flex-wrap gap-2">
-
           <UserTooltip user={post.user}>
-            <div className="flex gap-1">
-              <Link href={`/users/${post.user.username}`}>
-                <UserAvatar avatarUrl={post.user.avatarUrl} />
-              </Link>
+            <Link href={`/users/${post.user.username}`} className="flex gap-1">
+              <UserAvatar avatarUrl={post.user.avatarUrl} />
 
               <div>
-                <Link
-                  href={`/users/${post.user.username}`}
-                  className="flex items-center gap-1 font-medium hover:underline"
-                >
+                <span className="flex items-center gap-1 font-medium hover:underline">
                   {post.user.displayName}
                   {badge(post.user) == "OP" && <Crown size={17} color="gold" />}
                   {badge(post.user) == "Verified" && (
                     <CircleCheck size={17} color="#1F75FE" />
                   )}
-                </Link>
-                <Link
-                  href={`/posts/${post.id}`}
-                  className="block text-xs text-muted-foreground hover:underline"
-                >
+                </span>
+                <span className="block text-xs text-muted-foreground">
                   {formatReletiveDate(post.createdAt)}
-                </Link>
+                </span>
               </div>
-            </div>
+            </Link>
           </UserTooltip>
         </div>
         {post.user.id === user?.id && (

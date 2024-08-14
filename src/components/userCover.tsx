@@ -15,21 +15,23 @@ export default function UserCover({
   size,
   className,
 }: UserCoverProps) {
+  const height = size ?? 90;
+  const width = size ? (size * 12) / 9 : 120;
   return (
     <>
       {coverUrl ? (
         <Image
           src={coverUrl}
           alt="User"
-          width={size ?? 48}
-          height={size ?? 48}
+          width={width}
+          height={height}
           className={cn(
-            "aspect-square h-fit flex-none rounded-full bg-secondary object-cover",
+            "h-72 w-full flex-none rounded-md bg-secondary object-cover",
             className,
           )}
         />
       ) : (
-        <div className="bg-blue-400 w-full h-60 rounded-md"></div>
+        <div className="h-60 w-full rounded-md bg-blue-400"></div>
       )}
     </>
   );

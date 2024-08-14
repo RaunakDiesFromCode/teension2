@@ -14,6 +14,7 @@ import {
   TooltipTrigger,
 } from "./ui/tooltip";
 import UserAvatar from "./userAvatar";
+import UserCover from "./userCover";
 
 interface UserTooltipProps extends PropsWithChildren {
   user: UserData;
@@ -34,31 +35,44 @@ export default function UserTooltip({ children, user }: UserTooltipProps) {
       <Tooltip>
         <TooltipTrigger asChild>{children}</TooltipTrigger>
         <TooltipContent>
-          <div className="flex max-w-80 flex-col gap-3 break-words px-1 py-2.5 md:min-w-52">
-            <div className="flex items-center justify-between gap-2">
-              <Link href={`/users/${user.username}`}>
-                <UserAvatar size={70} avatarUrl={user.avatarUrl} />
-              </Link>
-              {loggedInUser?.id !== user.id && (
-                <FollowButton userId={user.id} initialState={followerState} />
+          <div className="relative flex max-w-80 flex-col gap-3 break-words px-1 py-2.5 md:min-w-52">
+            <div className="absolute inset-0 h-32 w-full overflow-hidden">
+              <UserCover
+                coverUrl={user.coverUrl}
+                size={1000}
+                className="h-full w-full object-cover"
+              />
+              <div className="absolute inset-0 bg-black/50 "></div>
+            </div>
+
+            <div className="relative z-10 flex flex-col gap-3 p-3 mt-7">
+              <div className="flex items-center justify-between gap-2">
+                <Link href={`/users/${user.username}`}>
+                  <UserAvatar size={70} avatarUrl={user.avatarUrl} />
+                </Link>
+                {loggedInUser?.id !== user.id && (
+                  <FollowButton userId={user.id} initialState={followerState} />
+                )}
+              </div>
+              <div>
+                <Link href={`/users/${user.username}`}>
+                  <div className="text-lg font-semibold text-white hover:underline">
+                    {user.displayName}
+                  </div>
+                  <div className="text-muted-foreground text-white">
+                    @{user.username}
+                  </div>
+                </Link>
+              </div>
+              {user.bio && (
+                <Linkify>
+                  <div className="line-clamp-4 whitespace-pre-line text-white">
+                    {user.bio}
+                  </div>
+                </Linkify>
               )}
+              <FollowerCount userId={user.id} initialState={followerState} />
             </div>
-            <div>
-              <Link href={`/users/${user.username}`}>
-                <div className="text-lg font-semibold hover:underline">
-                  {user.displayName}
-                </div>
-                <div className="text-muted-foreground">@{user.username}</div>
-              </Link>
-            </div>
-            {user.bio && (
-              <Linkify>
-                <div className="line-clamp-4 whitespace-pre-line">
-                  {user.bio}
-                </div>
-              </Linkify>
-            )}
-            <FollowerCount userId={user.id} initialState={followerState} />
           </div>
         </TooltipContent>
       </Tooltip>
