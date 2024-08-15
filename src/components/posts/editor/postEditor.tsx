@@ -3,7 +3,6 @@
 import { EditorContent, useEditor } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import Placeholder from "@tiptap/extension-placeholder";
-import { submitPost } from "./actions";
 import UserAvatar from "@/components/userAvatar";
 import { useSession } from "@/app/(main)/SessionProvider";
 import React, { useRef } from "react";
@@ -15,6 +14,8 @@ import LoadingButton from "@/components/LoadingButton";
 import useMediaUpload, { Attachment } from "./useMediaUpload";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
+import { useDropzone } from "@uploadthing/react";
+import {ClipboardEvent} from "react";
 
 export default function PostEditor() {
   const { user } = useSession();
@@ -29,6 +30,12 @@ export default function PostEditor() {
     removeAttachment,
     reset: resetMediaUpload,
   } = useMediaUpload();
+
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({
+    onDrop: startUpload,
+  });
+
+  const { onClick, ...rootProps } = getRootProps();
 
   const editor = useEditor({
     extensions: [
@@ -63,14 +70,33 @@ export default function PostEditor() {
     editor?.commands.clearContent();
   }
 
+  function onPaste(e: ClipboardEvent<HTMLInputElement>) {
+    const files = Array.from(e.clipboardData.items)
+      .filter((item) => item.kind === "file")
+      .map((item) => item.getAsFile()) as File[];
+
+    startUpload(files);
+  }
+
   return (
     <div className="felx m-1 flex-col gap-5 rounded-2xl bg-card p-3 shadow-[0_8px_30px_rgb(0,0,0,0.12)]">
-      <div className="flex gap-5">
+      <div className="flex gap-5 items-center mb-2">
         <UserAvatar avatarUrl={user?.avatarUrl} className="hidden sm:inline" />
-        <EditorContent
-          editor={editor}
-          className="max-h-[20rem] w-full overflow-y-auto rounded-2xl bg-primary-foreground px-5 py-3"
-        />
+        <div
+          {...rootProps}
+          className="w-full transition-transform delay-150 ease-in-out"
+        >
+          <EditorContent
+            editor={editor}
+            className={cn(
+              "w-full overflow-y-auto rounded-2xl bg-primary-foreground px-5 py-3 transition-[max-height] duration-500 ease-in-out",
+              isDragActive ? "max-h-[30rem]" : "max-h-[20rem]",
+              isDragActive && "outline-dashed outline-2 h-[30rem]",
+            )}
+            onPaste={onPaste}
+          />
+          <input {...getInputProps()} />
+        </div>
       </div>
       {!!attachments.length && (
         <AttachmentPreviews

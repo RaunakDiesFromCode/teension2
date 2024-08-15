@@ -35,14 +35,13 @@ export default function UserTooltip({ children, user }: UserTooltipProps) {
       <Tooltip>
         <TooltipTrigger asChild>{children}</TooltipTrigger>
         <TooltipContent>
-          <div className="relative flex max-w-80 flex-col gap-3 break-words px-1 py-2.5 md:min-w-52">
-            <div className="absolute inset-0 h-32 w-full overflow-hidden">
+          <div className="relative flex max-w-80 flex-col gap-3 break-words p-1 md:min-w-52">
+            <div className="absolute inset-0 h-32 py-1 w-full overflow-hidden">
               <UserCover
                 coverUrl={user.coverUrl}
                 size={1000}
                 className="h-full w-full object-cover"
               />
-              <div className="absolute inset-0 bg-black/50 "></div>
             </div>
 
             <div className="relative z-10 flex flex-col gap-3 p-3 mt-7">
@@ -56,17 +55,17 @@ export default function UserTooltip({ children, user }: UserTooltipProps) {
               </div>
               <div>
                 <Link href={`/users/${user.username}`}>
-                  <div className="text-lg font-semibold text-white hover:underline">
+                  <div className="text-lg font-semibold text-primary hover:underline">
                     {user.displayName}
                   </div>
-                  <div className="text-muted-foreground text-white">
+                  <div className="text-muted-foreground">
                     @{user.username}
                   </div>
                 </Link>
               </div>
               {user.bio && (
                 <Linkify>
-                  <div className="line-clamp-4 whitespace-pre-line text-white">
+                  <div className="line-clamp-4 whitespace-pre-line text-primary">
                     {user.bio}
                   </div>
                 </Linkify>
