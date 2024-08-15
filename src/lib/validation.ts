@@ -22,6 +22,7 @@ export type LoginValues = z.infer<typeof loginSchema>;
 
 export const createPostSchema = z.object({
   content: requiredString,
+  mediaIds: z.array(z.string()).max(5, "Can't upload more than 5 files"),
 });
 
 export const updateUserProfileSchema = z.object({

@@ -19,7 +19,6 @@ model User {
   avatarUrl    String?   @map("avatarURL")
   coverUrl     String?   @map("coverURL")
   bio          String?
-  createdAt    DateTime  @default(now())
   op           Boolean?  @default(false) @map("OP")
   verified     Boolean?  @default(false)
   stars        Int?      @default(0)
@@ -28,6 +27,7 @@ model User {
   posts        Post[]
   following    Follow[]  @relation("Following")
   followers    Follow[]  @relation("Followers")
+  createdAt    DateTime  @default(now())
 
   @@map("users")
 }
@@ -52,11 +52,28 @@ model Follow {
 }
 
 model Post {
-  id        String   @id @default(cuid())
-  content   String
-  userId    String
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  createdAt DateTime @default(now())
+  id          String   @id @default(cuid())
+  content     String
+  userId      String
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  attachments Media[]
+  createdAt   DateTime @default(now())
 
   @@map("posts")
+}
+
+model Media {
+  id        String    @id @default(cuid())
+  postId    String?
+  post      Post?     @relation(fields: [postId], references: [id], onDelete: SetNull)
+  type      MediaType
+  url       String
+  createdAt DateTime  @default(now())
+
+  @@map("media")
+}
+
+enum MediaType {
+  IMAGE
+  VIDEO
 }
