@@ -48,7 +48,7 @@ export default function FollowButton({
       console.error(error);
       toast({
         variant: "destructive",
-        description: "Something went wrong. Please try again.",
+        description: "Following logic is difficult for us. Pardon", 
       });
     },
   });
