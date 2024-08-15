@@ -109,12 +109,17 @@ function MediaPreview({ media }: MediaPreviewProps) {
 
   if (media.type === "VIDEO") {
     return (
-      <div>
-        <video controls className="mx-auto size-fit max-h-[30rem] rounded-2xl">
-          <source src={media.url} type="video/mp4" />
-          Your crappy browser does not support the video .
-        </video>
-      </div>
+      <CarouselItem className="w-full">
+        <div className="rounded-2xl">
+          <video
+            controls
+            className="mx-auto size-fit max-h-[30rem] rounded-2xl"
+          >
+            <source src={media.url} type="video/mp4" />
+            Your crappy browser does not support the video .
+          </video>
+        </div>
+      </CarouselItem>
     );
   }
 
