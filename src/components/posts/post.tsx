@@ -1,9 +1,9 @@
-"use client"
+"use client";
 import { PostData } from "@/lib/types";
 import Link from "next/link";
 import UserAvatar from "../userAvatar";
-import { badge, cn, formatReletiveDate } from "@/lib/utils";
-import { CircleCheck, Crown } from "lucide-react";
+import { badge, formatReletiveDate } from "@/lib/utils";
+import { CircleCheck, Crown, MessageSquare } from "lucide-react";
 import { useSession } from "@/app/(main)/SessionProvider";
 import PostMoreButton from "./PostMoreButton";
 import Linkify from "../Linkify";
@@ -18,6 +18,8 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import LikeButton from "./LikeButton";
+import { useState } from "react";
+import Comments from "../comments/Comments";
 
 interface PostsProps {
   post: PostData;
@@ -26,10 +28,13 @@ interface PostsProps {
 export default function Posts({ post }: PostsProps) {
   const { user } = useSession();
 
+  const [showComments, setShowComments] = useState(false);
+
   return (
     <article className="group/post space-y-3 rounded-2xl bg-card p-5 shadow-[0_3px_15px_rgb(0,0,0,0.12)]">
-      <Link href={`/posts/${post.id}`} suppressHydrationWarning>
-        <div className="flex justify-between gap-3">
+      <div className="flex justify-between gap-3">
+        {" "}
+        <Link href={`/posts/${post.id}`} className="w-full" suppressHydrationWarning>
           <div className="flex flex-wrap gap-2">
             <UserTooltip user={post.user}>
               <div className="flex gap-1">
@@ -55,14 +60,15 @@ export default function Posts({ post }: PostsProps) {
               </div>
             </UserTooltip>
           </div>
-          {post.user.id === user?.id && (
-            <PostMoreButton
-              post={post}
-              className="opacity-0 transition-opacity group-hover/post:opacity-100"
-            />
-          )}
-        </div>
-      </Link>
+        </Link>
+        {post.user.id === user?.id && (
+          <PostMoreButton
+            post={post}
+            className="opacity-0 transition-opacity group-hover/post:opacity-100"
+          />
+        )}
+      </div>
+
       <Linkify>
         <div className="whitespace-pre-line break-words">{post.content}</div>
       </Linkify>
@@ -70,10 +76,20 @@ export default function Posts({ post }: PostsProps) {
         <MediaPreviews attachments={post.attachments} />
       )}
       <hr className="text-muted-foreground" />
-      <LikeButton postId={post.id} initialState={{
-        likes: post._count.likes,
-        isLikedByUser: post.likes.some((like) => like.userId === user?.id),
-      }} />
+      <div className="flex items-center gap-5">
+        <LikeButton
+          postId={post.id}
+          initialState={{
+            likes: post._count.likes,
+            isLikedByUser: post.likes.some((like) => like.userId === user?.id),
+          }}
+        />
+        <CommentButton
+          post={post}
+          onClick={() => setShowComments(!showComments)}
+        />
+      </div>
+      {showComments && <Comments post={post} />}
     </article>
   );
 }
@@ -142,5 +158,24 @@ function MediaPreview({ media }: MediaPreviewProps) {
       Look at the sky and think about the universe. You won&appos;t find the
       media here.
     </p>
+  );
+}
+
+interface CommentButtonProps {
+  post: PostData;
+  onClick: () => void;
+}
+
+export function CommentButton({ post, onClick }: CommentButtonProps) {
+  return (
+    <button onClick={onClick} className="flex items-center gap-2">
+      <MessageSquare className="size-5" />
+      <span className="text-sm font-medium tabular-nums">
+        {post._count.comments}{" "}
+        <span className="hidden sm:inline">
+          Comment{post._count.comments !== 1 ? "s" : ""}{" "}
+        </span>
+      </span>
+    </button>
   );
 }
