@@ -1,4 +1,4 @@
-import avatarPlaceholder from "@/assets/avatar-placeholder.png";
+import avatarPlaceholder from "@/assets/avatar-placeholder.webp";
 import coverPlaceholder from "@/assets/cover-placeholder.jpg";
 import LoadingButton from "@/components/LoadingButton";
 import {
