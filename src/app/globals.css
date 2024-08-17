@@ -2,6 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
+@import '~stream-chat-react/dist/css/v2/index.css';
+
 @layer base {
   :root {
     --background: 0 0% 100%;
@@ -66,4 +68,50 @@
   body {
     @apply bg-background text-foreground;
   }
+}
+
+
+.str-chat {
+  --str-chat__font-family: inherit;
+ /* --str-chat__primary-color: theme(colors.primary.DEFAULT);  the color of the logo */
+  --str-chat__on-primary-color: theme(colors.primary.foreground); /* the color of the text within logo */
+  --str-chat__active-primary-color: theme(colors.primary.foreground);
+  --str-chat__primary-color-low-emphasis: color-mix(
+    in hsl,
+    hsl(var(--primary)) 10%,
+    transparent
+  );
+  --str-chat__text-color: theme(colors.foreground); /* the color of the text */
+  --str-chat__text-low-emphasis-color: theme(colors.foreground); 
+  --str-chat__opaque-surface-text-color: theme(colors.foreground); 
+  --str-chat__opaque-surface-text-color: theme(colors.foreground); 
+  --str-chat__background-color: theme(colors.card.DEFAULT); /* the background color of the chat box*/
+  --str-chat__secondary-background-color: theme(colors.card.DEFAULT); /* the background color of the chats name*/
+  --str-chat__message-textarea-background-color: theme(colors.background); /* the place where we type the message */
+  --str-chat__channel-preview-active-background-color: theme(
+    colors.accent.DEFAULT
+  );
+  --str-chat__channel-preview-hover-background-color: var(
+    --str-chat__channel-preview-active-background-color
+  );
+  --str-chat__secondary-surface-color: theme(colors.muted.DEFAULT);
+  --str-chat__own-message-bubble-color: theme(colors.primary.foreground);
+  --str-chat__primary-surface-color: theme(colors.primary.DEFAULT); /* the color of the my chat bubbble */
+  --str-chat__primary-surface-color-low-emphasis: var(
+    --str-chat__primary-color-low-emphasis
+  );
+  --str-chat__disabled-color: theme(colors.muted.DEFAULT);
+  --str-chat__cta-button-border-radius: var(--radius);
+}
+
+.str-chat-channel-list {
+  border-right: none;
+}
+
+.str-chat__channel-list-react .str-chat__channel-list-messenger-react {
+  padding-bottom: 0;
+}
+
+.str-chat__channel-search-bar-button--exit-search {
+  display: none;
 }

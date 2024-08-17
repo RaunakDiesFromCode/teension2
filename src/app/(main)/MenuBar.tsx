@@ -1,17 +1,11 @@
 import { validateRequest } from "@/auth";
-import NotificationButton from "@/components/notificationButton";
 import { Button } from "@/components/ui/button";
 import prisma from "@/lib/prisma";
-import {
-  Bell,
-  Dumbbell,
-  Handshake,
-  Home,
-  PawPrint,
-  TreePalm,
-} from "lucide-react";
+import { Dumbbell, Home, TreePalm } from "lucide-react";
 import Link from "next/link";
 import NotificationsButton from "./NotificationsButton";
+import MessagesButton from "./MessagesButton";
+import streamServerClient from "@/lib/stream";
 
 interface MenuBarProps {
   className?: string;
@@ -24,9 +18,15 @@ export default async function MenuBar({ className }: MenuBarProps) {
     return null;
   }
 
-  const unreadNotificationCount = await prisma.notification.count({
-    where: { receipentId: user.id, read: false },
-  });
+  const [unreadNotificationsCount, unreadMessagesCount] = await Promise.all([
+    prisma.notification.count({
+      where: {
+        receipentId: user.id,
+        read: false,
+      },
+    }),
+    (await streamServerClient.getUnreadCount(user.id)).total_unread_count,
+  ]);
 
   return (
     <div className={className}>
@@ -42,19 +42,9 @@ export default async function MenuBar({ className }: MenuBarProps) {
         </Link>
       </Button>
       <NotificationsButton
-        initialState={{ unreadCount: unreadNotificationCount }}
+        initialState={{ unreadCount: unreadNotificationsCount }}
       />
-      <Button
-        variant="ghost"
-        className="flex items-center justify-start gap-3"
-        title="Home"
-        asChild
-      >
-        <Link href="/messages">
-          <Handshake />
-          <span className="hidden lg:inline">Messages</span>
-        </Link>
-      </Button>
+      <MessagesButton initialState={{ unreadCount: unreadMessagesCount }} />
       <Button
         variant="ghost"
         className="flex items-center justify-start gap-3"
