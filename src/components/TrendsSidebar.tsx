@@ -9,10 +9,11 @@ import { Suspense } from "react";
 import FollowButton from "./FollowButton";
 import UserTooltip from "./UserTooltip";
 import UserAvatar from "./userAvatar";
+import { Badge } from "./Badge";
 
 export default function TrendsSidebar() {
   return (
-    <div className="sticky top-[5.25rem] hidden h-fit w-72 flex-none space-y-5 md:block lg:w-80">
+    <div className="sticky top-[5.25rem] hidden overflow-y-auto h-full w-72 flex-none space-y-5 md:block lg:w-80">
       <Suspense fallback={<Loader2 className="mx-auto animate-spin" />}>
         <WhoToFollow />
         <TrendingTopics />
@@ -53,9 +54,10 @@ async function WhoToFollow() {
             >
               <UserAvatar avatarUrl={user.avatarUrl} className="flex-none" />
               <div>
-                <p className="line-clamp-1 break-all font-semibold hover:underline">
-                  {user.displayName}
-                </p>
+                <Badge
+                  user={user}
+                  className="line-clamp-1 flex items-center gap-1 break-all font-semibold hover:underline"
+                />
                 <p className="line-clamp-1 break-all text-muted-foreground">
                   @{user.username}
                 </p>

@@ -19,8 +19,7 @@ model User {
   avatarUrl            String?        @map("avatarURL")
   coverUrl             String?        @map("coverURL")
   bio                  String?
-  op                   Boolean?       @default(false) @map("OP")
-  verified             Boolean?       @default(false)
+  badge                String?        @default("normal") @map("badge")
   stars                Int?           @default(0)
   tribe                String?        @default("rookie") @map("tribe")
   sessions             Session[]

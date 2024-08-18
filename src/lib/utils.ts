@@ -1,7 +1,6 @@
 import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
 import { formatDate, formatDistanceToNowStrict } from "date-fns";
-import { User } from "lucia";
 import { UserData } from "./types";
 
 export function cn(...inputs: ClassValue[]) {
@@ -17,25 +16,6 @@ export function formatReletiveDate(from: Date) {
       return formatDate(from, "MMM d");
     else formatDate(from, "MMM d, yyy");
   }
-}
-
-// Function to check if the user is the Original Poster (OP)
-function isOP(user: UserData): boolean {
-  return user.op === true;
-}
-
-// Function to check if the user is verified
-function isVerified(user: UserData): boolean {
-  return user.verified === true;
-}
-
-export function badge(user: UserData) {
-  if (isOP(user)) {
-    return "OP";
-  } else if (isVerified(user)) {
-    return "Verified";
-  }
-  return "";
 }
 
 export function formatNumber(n: number): string {

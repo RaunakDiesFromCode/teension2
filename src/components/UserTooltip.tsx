@@ -15,6 +15,7 @@ import {
 } from "./ui/tooltip";
 import UserAvatar from "./userAvatar";
 import UserCover from "./userCover";
+import { Badge } from "./Badge";
 
 interface UserTooltipProps extends PropsWithChildren {
   user: UserData;
@@ -36,7 +37,7 @@ export default function UserTooltip({ children, user }: UserTooltipProps) {
         <TooltipTrigger asChild>{children}</TooltipTrigger>
         <TooltipContent>
           <div className="relative flex max-w-80 flex-col gap-3 break-words p-1 md:min-w-52">
-            <div className="absolute inset-0 h-32 py-1 w-full overflow-hidden">
+            <div className="absolute inset-0 h-32 w-full overflow-hidden py-1">
               <UserCover
                 coverUrl={user.coverUrl}
                 size={1000}
@@ -44,7 +45,7 @@ export default function UserTooltip({ children, user }: UserTooltipProps) {
               />
             </div>
 
-            <div className="relative z-10 flex flex-col gap-3 p-3 mt-7">
+            <div className="relative z-10 mt-7 flex flex-col gap-3 p-3">
               <div className="flex items-center justify-between gap-2">
                 <Link href={`/users/${user.username}`}>
                   <UserAvatar size={70} avatarUrl={user.avatarUrl} />
@@ -55,12 +56,11 @@ export default function UserTooltip({ children, user }: UserTooltipProps) {
               </div>
               <div>
                 <Link href={`/users/${user.username}`}>
-                  <div className="text-lg font-semibold text-primary hover:underline">
-                    {user.displayName}
-                  </div>
-                  <div className="text-muted-foreground">
-                    @{user.username}
-                  </div>
+                  <Badge
+                    user={user}
+                    className="flex items-center gap-1 text-lg font-semibold text-primary hover:underline"
+                  />
+                  <div className="text-muted-foreground">@{user.username}</div>
                 </Link>
               </div>
               {user.bio && (

@@ -2,8 +2,8 @@
 import { PostData } from "@/lib/types";
 import Link from "next/link";
 import UserAvatar from "../userAvatar";
-import { badge, formatReletiveDate } from "@/lib/utils";
-import { CircleCheck, Crown, MessageSquare } from "lucide-react";
+import { formatReletiveDate } from "@/lib/utils";
+import { MessageSquare } from "lucide-react";
 import { useSession } from "@/app/(main)/SessionProvider";
 import PostMoreButton from "./PostMoreButton";
 import Linkify from "../Linkify";
@@ -20,6 +20,7 @@ import {
 import LikeButton from "./LikeButton";
 import { useState } from "react";
 import Comments from "../comments/Comments";
+import { Badge } from "../Badge";
 
 interface PostsProps {
   post: PostData;
@@ -34,22 +35,18 @@ export default function Posts({ post }: PostsProps) {
     <article className="group/post space-y-3 rounded-2xl bg-card p-5 shadow-[0_3px_15px_rgb(0,0,0,0.12)]">
       <div className="flex justify-between gap-3">
         {" "}
-        <Link href={`/posts/${post.id}`} className="w-full" suppressHydrationWarning>
+        <Link
+          href={`/posts/${post.id}`}
+          className="w-full"
+          suppressHydrationWarning
+        >
           <div className="flex flex-wrap gap-2">
             <UserTooltip user={post.user}>
               <div className="flex gap-1">
                 <UserAvatar avatarUrl={post.user.avatarUrl} />
 
                 <div>
-                  <span className="flex items-center gap-1 font-medium hover:underline">
-                    {post.user.displayName}
-                    {badge(post.user) == "OP" && (
-                      <Crown size={17} color="gold" />
-                    )}
-                    {badge(post.user) == "Verified" && (
-                      <CircleCheck size={17} color="#1F75FE" />
-                    )}
-                  </span>
+                  <Badge user={post.user} />
                   <span
                     className="block text-xs text-muted-foreground"
                     suppressHydrationWarning
@@ -166,15 +163,13 @@ interface CommentButtonProps {
   onClick: () => void;
 }
 
-export function CommentButton({ post, onClick }: CommentButtonProps) {
+function CommentButton({ post, onClick }: CommentButtonProps) {
   return (
     <button onClick={onClick} className="flex items-center gap-2">
       <MessageSquare className="size-5" />
       <span className="text-sm font-medium tabular-nums">
         {post._count.comments}{" "}
-        <span className="hidden sm:inline">
-          Comment{post._count.comments !== 1 ? "s" : ""}{" "}
-        </span>
+        <span className="hidden sm:inline">comments</span>
       </span>
     </button>
   );
