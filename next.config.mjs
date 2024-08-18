@@ -13,6 +13,11 @@ const nextConfig = {
         hostname: "utfs.io",
         pathname: `/a/${process.env.NEXT_PUBLIC_UPLOADTHING_APP_ID}/*`,
       },
+      {
+        protocol: "https",
+        hostname: "cdn2.thecatapi.com",
+        pathname: "/images/**",
+      },
     ],
   },
   rewrites: async () => {
@@ -22,7 +27,7 @@ const nextConfig = {
         destination: `/search?q=%23:tag`,
       },
     ];
-  }
+  },
 };
 
 export default nextConfig;
