@@ -1,6 +1,8 @@
 import { Metadata } from "next";
 import LoginForm from "./LoginForm";
 import Link from "next/link";
+import GoogleSignInButton from "./google/GoogleSignInButton";
+import GithubSignInButton from "./github/GithubSignInButton";
 
 export const metadata: Metadata = {
   title: "Login",
@@ -18,6 +20,15 @@ export default function LoginPage() {
             </p>
           </div>
           <div className="space-y-5">
+            <div className="flex gap-3">
+              <GoogleSignInButton />
+              <GithubSignInButton />
+            </div>
+            <div className="flex items-center gap-3">
+              <div className="h-px flex-1 bg-muted" />
+              <span>or</span>
+              <div className="h-px flex-1 bg-muted" />
+            </div>
             <LoginForm />
             <div className="block text-center">
               {`New here? `}
