@@ -5,7 +5,7 @@ import prisma from "./lib/prisma";
 import { Lucia, Session, User } from "lucia";
 import { cache } from "react";
 import { cookies } from "next/headers";
-import { Google } from "arctic";
+import { GitHub, Google } from "arctic";
 
 const adapter = new PrismaAdapter(prisma.session, prisma.user);
 
@@ -23,6 +23,7 @@ export const lucia = new Lucia(adapter, {
       displayName: databaseUserAttributes.displayName,
       avatarUrl: databaseUserAttributes.avatarUrl,
       googleId: databaseUserAttributes.googleId,
+      githubId: databaseUserAttributes.githubId,
       coverUrl: databaseUserAttributes.coverUrl,
       OP: databaseUserAttributes.OP,
       verified: databaseUserAttributes.verified,
@@ -45,6 +46,7 @@ interface DatabaseUserAttributes {
   displayName: string;
   avatarUrl: string | null;
   googleId: string | null;
+  githubId: string | null;
   coverUrl: string | null;
   OP: boolean;
   verified: boolean;
@@ -56,6 +58,11 @@ export const google = new Google(
   process.env.GOOGLE_CLIENT_ID!,
   process.env.GOOGLE_CLIENT_SECRET!,
   `${process.env.NEXT_PUBLIC_BASE_URL}/api/auth/callback/google`,
+);
+
+export const github = new GitHub(
+  process.env.GITHUB_CLIENT_ID!,
+  process.env.GITHUB_CLIENT_SECRET!,
 );
 
 export const validateRequest = cache(
