@@ -102,7 +102,7 @@ export function MediaPreviews({ attachments }: MediaPreviewsProps) {
         {attachments.length > 1 && (
           <CarouselPrevious className="absolute left-0 top-1/2 z-10 mx-4 -translate-y-1/2 transform" />
         )}
-        <CarouselContent className="w-full">
+        <CarouselContent className="w-full flex items-center">
           {attachments.map((m) => (
             <MediaPreview key={m.id} media={m} />
           ))}
@@ -126,9 +126,9 @@ function MediaPreview({ media }: MediaPreviewProps) {
         <Image
           src={media.url}
           alt="where's the IMAGEEEE!!!!????"
-          width={500}
-          height={500}
-          className="mx-auto size-full max-h-[30rem] rounded-2xl"
+          width={1000}
+          height={1000}
+          className="mx-auto h-auto max-h-[35rem] w-full rounded-2xl object-contain"
         />
       </CarouselItem>
     );
@@ -140,7 +140,8 @@ function MediaPreview({ media }: MediaPreviewProps) {
         <div className="rounded-2xl">
           <video
             controls
-            className="mx-auto size-fit max-h-[30rem] rounded-2xl"
+            // className="mx-auto size-fit max-h-[30rem] rounded-2xl"
+            className="mx-auto h-auto max-h-[35rem] w-full rounded-2xl object-contain"
           >
             <source src={media.url} type="video/mp4" />
             Your crappy browser does not support the video .

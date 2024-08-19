@@ -27,7 +27,7 @@ export default function NotFound() {
   return (
     <div className="my-11 h-full w-full space-y-3 text-center">
       <div className="text-center">
-        <h1 className="mb-4 p-0 text-[20rem] font-semibold">
+        <h1 className="mb-4 p-0 text-[7.5rem] font-semibold md:text-[20rem]">
           <span className="relative inline-block">
             {catImageUrl && (
               <Image

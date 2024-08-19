@@ -2,21 +2,17 @@ import Link from "next/link";
 import UserButton from "./userButton";
 import SearchField from "./searchField";
 import NotificationButton from "./notificationButton";
+import Icon from "./Icon";
 
 export default function Navbar() {
   return (
-    <header className="sticky top-0 z-10 bg-card shadow-sm z-50">
-      <div className="mx-auto flex max-w-7xl items-center justify-between gap-5 px-9 py-3">
-        <Link href="/" className="text-2xl font-bold text-primary">
-          <div className="rounded-md border-2 border-primary p-1 text-lg font-bold leading-none text-primary transition-colors duration-100">
-            teen
-            <br />
-            sion
-          </div>
+    <header className="sticky flex items-center justify-center top-0 bg-card shadow-sm z-50">
+      <div className="px-auto flex max-w-7xl items-center justify-between mx-auto gap-5 px-9 py-3">
+        <Link href="/" className="text-2xl font-bold text-primary size-9 flex items-center justify-center">
+          <Icon />
         </Link>
         <SearchField />
         <div className="flex gap-4">
-          <NotificationButton />
           <UserButton />
         </div>
       </div>
