@@ -7,7 +7,7 @@ import UserCover from "@/components/userCover";
 import prisma from "@/lib/prisma";
 import { FollowerInfo, getUserDataSelect, UserData } from "@/lib/types";
 import { formatDate } from "date-fns";
-import {Star } from "lucide-react";
+import { Star } from "lucide-react";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { cache } from "react";
@@ -15,6 +15,7 @@ import UserPosts from "./UserPosts";
 import Linkify from "@/components/Linkify";
 import EditProfileButton from "./EditProfileButton";
 import { Badge } from "@/components/Badge";
+import { TribeBadge } from "@/components/TribesBadge";
 
 interface pageProps {
   params: { username: string };
@@ -101,18 +102,11 @@ async function UserProfile({ user, loggedInUserId }: UserProfileProps) {
 
       <div className="flex h-fit flex-col flex-wrap gap-3 sm:flex-nowrap">
         <div className="mx-auto me-auto space-y-3">
-          <div className="h-fit text-center">
-            {/* -mt-28 */}
-            {/* <h1 className="mx-auto mt-32 flex w-full items-center gap-1 text-3xl font-bold">
-              {user.displayName}
-              {badge(user) == "OP" && <Crown size={20} color="gold" />}
-              {badge(user) == "Verified" && (
-                <CircleCheck size={20} color="#1F75FE" />
-              )}
-            </h1> */}
+          <div className="relative mb-10 h-fit text-center">
+            <TribeBadge user={user} className="mb-36" />
             <Badge
               user={user}
-              className="mx-auto mt-32 flex w-full items-center gap-1 text-3xl font-bold"
+              className="relative mx-auto mt-36 flex w-full items-center gap-1 text-3xl font-bold hover:no-underline"
             />
           </div>
         </div>
