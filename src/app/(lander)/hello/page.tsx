@@ -79,7 +79,7 @@ const Page = () => {
       <ul className="mt-6 w-full list-none space-y-4 text-center text-[1.2rem] font-normal text-gray-500">
         {features.map((feature, index) => (
           <li key={index}>
-            <Card className="flex w-full items-center">
+            <Card className="flex flex-col md:flex-row w-full items-center">
               <CardHeader>
                 <CardTitle>{feature.title}</CardTitle>
                 <CardDescription className="flex px-7 text-xl">
