@@ -62,11 +62,6 @@ export default async function Page({ params: { username } }: pageProps) {
     <main className="flex w-full min-w-0 gap-5">
       <div className="w-full min-w-0 space-y-5">
         <UserProfile user={user} loggedInUserId={loggedInUser.id} />
-        {/* <div className="rounded-2xl bg-card p-5 shadow-[0_3px_15px_rgb(0,0,0,0.12)]">
-          <h2 className="text-center text-2xl font-medium">
-            {user.displayName}&apos;s Posts
-          </h2>
-        </div> */}
         <UserPosts userId={user.id} />
       </div>
       <TrendsSidebar />
@@ -103,7 +98,7 @@ async function UserProfile({ user, loggedInUserId }: UserProfileProps) {
       <div className="flex h-fit flex-col flex-wrap gap-3 sm:flex-nowrap">
         <div className="mx-auto me-auto space-y-3">
           <div className="relative mb-10 h-fit text-center">
-            <TribeBadge user={user} className="mb-36" />
+            <TribeBadge user={user} className="mb-36 text-9xl" />
             <Badge
               user={user}
               className="relative mx-auto mt-36 flex w-full items-center gap-1 text-3xl font-bold hover:no-underline"
@@ -118,9 +113,6 @@ async function UserProfile({ user, loggedInUserId }: UserProfileProps) {
             </div>
             <div>
               {user.id === loggedInUserId ? (
-                // <Button className="rounded-full p-2">
-                //   <Pencil />
-                // </Button>
                 <EditProfileButton user={user} />
               ) : (
                 <FollowButton userId={user.id} initialState={followerInfo} />
@@ -129,15 +121,16 @@ async function UserProfile({ user, loggedInUserId }: UserProfileProps) {
           </div>
           <hr className="my-1" />
           <div className="flex justify-between">
-            <div className="text-muted-foreground">@{user.username}</div>
-            <div className="flex items-center gap-1 text-muted-foreground">
-              {user.stars}
-              <Star size={20} color="gold" />
+            <div>
+              <div className="text-muted-foreground">@{user.username}</div>
+              <div>
+                Member since {formatDate(user.createdAt, "MMM d, yyyy")}
+              </div>
             </div>
-          </div>
-          <div className="flex justify-between">
-            <div>Member since {formatDate(user.createdAt, "MMM d, yyyy")}</div>
-            <div className="italic text-muted-foreground">{user.tribe}</div>
+            <div className="flex items-center gap-1 text-muted-foreground text-2xl">
+              {user.stars}
+              <Star size={25} color="gold" />
+            </div>
           </div>
           <hr className="my-1" />
           {user.bio && (

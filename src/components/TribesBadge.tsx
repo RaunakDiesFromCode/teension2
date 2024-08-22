@@ -13,11 +13,11 @@ interface TribeBadgeProps {
   className?: string;
 }
 
-export function TribeBadge({ user, className }: TribeBadgeProps) {
+export function TribeBadge({ user, className}: TribeBadgeProps) {
   return (
     <span
       className={cn(
-        "font-cursive absolute inset-0 flex items-center justify-center text-[8rem] text-muted-foreground opacity-40",
+        `font-cursive absolute inset-0 flex items-center justify-center text-muted-foreground opacity-40`,
         className,
       )}
     >

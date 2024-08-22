@@ -73,13 +73,13 @@ const Page = () => {
         Join the Fun
       </Button>
       <p className="mt-8 text-center text-[1.2rem] font-normal text-gray-400">
-        {" Get ready to dive into a world, which is just your\'s to explore."}
+        {" Get ready to dive into a world, which is just your's to explore."}
       </p>
 
       <ul className="mt-6 w-full list-none space-y-4 text-center text-[1.2rem] font-normal text-gray-500">
         {features.map((feature, index) => (
           <li key={index}>
-            <Card className="flex flex-col md:flex-row w-full items-center">
+            <Card className="flex w-full flex-col items-center md:flex-row">
               <CardHeader>
                 <CardTitle>{feature.title}</CardTitle>
                 <CardDescription className="flex px-7 text-xl">
