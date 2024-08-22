@@ -1,29 +1,50 @@
 "use client";
 import { cn } from "@/lib/utils";
+import { Hammer, Heart } from "lucide-react";
 import { useTheme } from "next-themes";
 
 interface IconProps {
   className?: string;
+  size?: number;
 }
 
-export default function Icon({ className }: IconProps) {
+export default function Icon({ className, size = 30 }: IconProps) {
   const theme = useTheme().resolvedTheme;
+  const textSize = size; // Adjust the text size relative to the icon size
+  const betaSize = textSize / 2; // Adjust the "beta" size relative to the text size
 
   return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="30"
-      height="30"
-      viewBox="0 0 24 24"
-      fill="red"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      className={cn("lucide lucide-heart size-8 md:size-10", className)}
-      color={theme == "dark" ? "white" : "black"}
-    >
-      <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z" />
-    </svg>
+    <header className="sticky top-0 z-50 flex items-center">
+      <div className="">
+        <div className="flex items-center gap-2">
+          <Heart
+            width={size}
+            height={size}
+            fill="red"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            className={cn("lucide lucide-heart", className)}
+            color={theme == "dark" ? "white" : "black"}
+          />
+          <div className="flex">
+            <h1
+              className=""
+              style={{ fontSize: `${textSize}px` }}
+            >
+              teension
+            </h1>
+            <h1
+              className="hidden md:block"
+              style={{ fontSize: `${betaSize}px` }}
+            >
+              beta
+            </h1>
+            <Hammer size={betaSize} className="block md:hidden" />
+          </div>
+        </div>
+      </div>
+    </header>
   );
 }

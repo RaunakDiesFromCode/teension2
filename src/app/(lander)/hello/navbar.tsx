@@ -12,10 +12,6 @@ const navbar = () => {
         >
           <div className="flex items-center gap-2">
             <Icon className="md:size-8" />
-            <div className="flex">
-              <h1 className="text-4xl">teension</h1>
-              <h1 className="text-md">beta</h1>
-            </div>
           </div>
         </Link>
       </div>

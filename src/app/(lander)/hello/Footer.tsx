@@ -10,10 +10,6 @@ const Footer = () => {
           <a href="https://pagedone.io/" className="flex justify-center">
             <div className="flex items-center gap-2">
               <Icon className="md:size-8" />
-              <div className="flex items-end">
-                <h1 className="text-4xl font-bold">teension</h1>
-                <h1 className="text-xl font-bold">.vercel.app</h1>
-              </div>
             </div>
           </a>
           <ul className="mb-10 flex flex-col items-center justify-center gap-7 border-b border-gray-500 py-16 text-lg transition-all duration-500 md:flex-row md:gap-12">
@@ -80,8 +76,10 @@ const Footer = () => {
             ©{new Date().getFullYear()}, Raunak
             <br />
             All rights reserved.
-            <h1 className="text-xs text-gray-300">This website is still in a beta build, so please be patient with the bugs and errors.<br/> Feel free to report them.
-
+            <h1 className="text-xs text-gray-300">
+              This website is still in a beta build, so please be patient with
+              the bugs and errors.
+              <br /> Feel free to report them.
             </h1>
           </span>
         </div>

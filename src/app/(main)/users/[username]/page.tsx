@@ -83,7 +83,7 @@ async function UserProfile({ user, loggedInUserId }: UserProfileProps) {
   };
 
   return (
-    <div className="h-fit w-full space-y-5 rounded-2xl bg-card py-5">
+    <div className="h-fit w-full space-y-5 rounded-2xl bg-card p-5 xl:py-5">
       <div className="relative h-fit w-full">
         <UserCover coverUrl={user.coverUrl} size={10000} />
         <div className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2 transform rounded-full bg-background p-1.5">
