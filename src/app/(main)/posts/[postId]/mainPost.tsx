@@ -1,12 +1,9 @@
+"use client"
 import { PostData } from "@/lib/types";
 import Link from "next/link";
-import UserAvatar from "../userAvatar";
 import { formatReletiveDate } from "@/lib/utils";
 import { MessageSquare } from "lucide-react";
 import { useSession } from "@/app/(main)/SessionProvider";
-import PostMoreButton from "./PostMoreButton";
-import Linkify from "../Linkify";
-import UserTooltip from "../UserTooltip";
 import { Media } from "@prisma/client";
 import Image from "next/image";
 import {
@@ -16,8 +13,13 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
-import LikeButton from "./LikeButton";
-import { Badge } from "../Badge";
+import UserTooltip from "@/components/UserTooltip";
+import UserAvatar from "@/components/userAvatar";
+import { Badge } from "@/components/Badge";
+import PostMoreButton from "@/components/posts/PostMoreButton";
+import Linkify from "@/components/Linkify";
+import LikeButton from "@/components/posts/LikeButton";
+import Comments from "@/components/comments/Comments";
 
 interface PostsProps {
   post: PostData;
@@ -78,6 +80,7 @@ export default function Posts({ post }: PostsProps) {
         />
         <CommentButton post={post} />
       </div>
+      <Comments post={post} />
     </article>
   );
 }
@@ -158,13 +161,10 @@ function CommentButton({ post }: CommentButtonProps) {
   return (
     <button className="flex items-center gap-2">
       <MessageSquare className="size-5" />
-      <Link
-        className="text-sm font-medium tabular-nums"
-        href={`/posts/${post.id}`}
-      >
+      <span className="text-sm font-medium tabular-nums">
         {post._count.comments}{" "}
         <span className="hidden sm:inline">comments</span>
-      </Link>
+      </span>
     </button>
   );
 }

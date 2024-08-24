@@ -1,3 +1,4 @@
+"use client"
 import { PostData } from "@/lib/types";
 import { MoreHorizontal, Trash2 } from "lucide-react";
 import { useState } from "react";

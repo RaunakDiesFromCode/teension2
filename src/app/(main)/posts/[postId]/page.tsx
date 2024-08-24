@@ -1,7 +1,6 @@
 import { validateRequest } from "@/auth";
 import FollowButton from "@/components/FollowButton";
 import Linkify from "@/components/Linkify";
-import Post from "@/components/posts/post";
 import UserAvatar from "@/components/userAvatar";
 import UserTooltip from "@/components/UserTooltip";
 import prisma from "@/lib/prisma";
@@ -10,6 +9,7 @@ import { Loader2 } from "lucide-react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { cache, Suspense } from "react";
+import Posts from "./mainPost";
 
 interface PageProps {
   params: { postId: string };
@@ -48,7 +48,7 @@ export default async function Page({ params: { postId } }: PageProps) {
   return (
     <main className="flex w-full min-w-0 gap-5">
       <div className="w-full min-w-0 space-y-5">
-        <Post post={post} />
+        <Posts post={post} />
       </div>
       <div className="sticky top-[5.25rem] hidden h-fit w-72 flex-none space-y-5 md:block lg:w-80">
         <Suspense fallback={<Loader2 className="mx-auto animate-spin" />}>
