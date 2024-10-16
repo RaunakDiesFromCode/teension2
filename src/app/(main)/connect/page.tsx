@@ -12,7 +12,8 @@ import { ChevronLeft, Star } from "lucide-react";
 import Link from "next/link";
 import React from "react";
 
-const page = () => {
+// Main page component
+const Page = () => {
   return (
     <div className="flex w-full flex-col">
       <div className="m-2 flex items-center gap-2">
@@ -34,11 +35,12 @@ interface FollowListProps {
   beautify?: boolean;
 }
 
-export async function FollowList({
+// Separate FollowList as a helper component (not exported)
+const FollowList = async ({
   thresold,
   className,
   beautify,
-}: FollowListProps) {
+}: FollowListProps) => {
   const { user } = await validateRequest();
 
   if (!user) return null;
@@ -63,7 +65,11 @@ export async function FollowList({
       {usersToFollow.map((user) => (
         <div
           key={user.id}
-          className={`${beautify ? `grid grid-cols-1 justify-center px-7` : `flex justify-between`} w-full items-center gap-3`}
+          className={`${
+            beautify
+              ? `grid grid-cols-1 justify-center px-7`
+              : `flex justify-between`
+          } w-full items-center gap-3`}
         >
           {!beautify ? (
             <>
@@ -143,6 +149,6 @@ export async function FollowList({
       ))}
     </div>
   );
-}
+};
 
-export default page;
+export default Page;
