@@ -11,7 +11,7 @@ import UserTooltip from "./UserTooltip";
 import UserAvatar from "./userAvatar";
 import { Badge } from "./Badge";
 import { Button } from "./ui/button";
-import { FollowList } from "@/app/(main)/connect/page";
+import { FollowList } from "./FollowList";
 
 export default function TrendsSidebar() {
   return (
