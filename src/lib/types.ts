@@ -138,7 +138,6 @@ export type Tribe =
   | "Highness"
   | "Jedi";
 
-
 export type Question = {
   question: string;
   options: { label: string; value: string }[];
@@ -329,7 +328,9 @@ export const questions: Question[] = [
   },
 ];
 
-export const tribesInfo: { [key in Tribe]: string } & { [key: string]: string } = {
+export const tribesInfo: { [key in Tribe]: string } & {
+  [key: string]: string;
+} = {
   Ateredes:
     "With power in their hands, they rise anew, In the face of defeat, their courage grew.",
   Covenant:

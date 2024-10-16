@@ -98,7 +98,7 @@ async function UserProfile({ user, loggedInUserId }: UserProfileProps) {
       <div className="flex h-fit flex-col flex-wrap gap-3 sm:flex-nowrap">
         <div className="mx-auto me-auto space-y-3">
           <div className="relative mb-10 h-fit text-center">
-            <TribeBadge user={user} className="mb-36 text-9xl" />
+            <TribeBadge tribe={user.tribe || ""} className="mb-36 text-9xl" />
             <Badge
               user={user}
               className="relative mx-auto mt-36 flex w-full items-center gap-1 text-3xl font-bold hover:no-underline"

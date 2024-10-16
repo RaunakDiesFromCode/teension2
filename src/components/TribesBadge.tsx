@@ -1,4 +1,3 @@
-import { UserData } from "@/lib/types";
 import { cn } from "@/lib/utils";
 import { Playfair_Display } from "next/font/google";
 
@@ -9,11 +8,11 @@ const font = Playfair_Display({
 });
 
 interface TribeBadgeProps {
-  user: UserData;
+  tribe: string;
   className?: string;
 }
 
-export function TribeBadge({ user, className}: TribeBadgeProps) {
+export function TribeBadge({ tribe, className}: TribeBadgeProps) {
   return (
     <span
       className={cn(
@@ -21,7 +20,7 @@ export function TribeBadge({ user, className}: TribeBadgeProps) {
         className,
       )}
     >
-      <div className={font.className}>{user.tribe}</div>
+      <div className={font.className}>{tribe}</div>
     </span>
   );
 }
