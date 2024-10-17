@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 @import '~stream-chat-react/dist/css/v2/index.css';
-
+/* 
 @layer base {
   :root {
     --background: 0 0% 100%;
@@ -59,6 +59,52 @@
     --chart-4: 280 65% 60%;
     --chart-5: 340 75% 55%;
   }
+} */
+
+:root {
+  --background: 182 12% 95%;
+  --foreground: 182 5% 3%;
+  --card: 182 12% 90%;
+  --card-foreground: 182 5% 10%;
+  --popover: 182 12% 95%;
+  --popover-foreground: 182 95% 3%;
+  --primary: 182 99% 41%;
+  --primary-foreground: 0 0% 100%;
+  --secondary: 182 12% 70%;
+  --secondary-foreground: 0 0% 0%;
+  --muted: 144 12% 85%;
+  --muted-foreground: 182 5% 35%;
+  --accent: 144 12% 80%;
+  --accent-foreground: 182 5% 10%;
+  --destructive: 0 50% 30%;
+  --destructive-foreground: 182 5% 90%;
+  --border: 182 20% 50%;
+  --input: 182 20% 18%;
+  --ring: 182 99% 41%;
+  --radius: 1rem;
+}
+
+.dark {
+  --background: 182 12% 5%;
+  --foreground: 182 5% 90%;
+  --card: 182 12% 3%;
+  --card-foreground: 182 5% 90%;
+  --popover: 182 12% 5%;
+  --popover-foreground: 182 5% 90%;
+  --primary: 182 99% 41%;
+  --primary-foreground: 0 0% 100%;
+  --secondary: 182 12% 10%;
+  --secondary-foreground: 0 0% 100%;
+  --muted: 144 12% 15%;
+  --muted-foreground: 182 5% 60%;
+  --accent: 144 12% 15%;
+  --accent-foreground: 182 5% 90%;
+  --destructive: 0 50% 30%;
+  --destructive-foreground: 182 5% 90%;
+  --border: 182 20% 18%;
+  --input: 182 20% 18%;
+  --ring: 182 99% 41%;
+  --radius: 1rem;
 }
 
 @layer base {

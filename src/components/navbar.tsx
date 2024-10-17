@@ -11,7 +11,7 @@ export default function Navbar() {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-50 flex w-full flex-col items-center justify-center bg-card shadow-sm md:px-12">
+    <header className="sticky top-0 z-50 flex w-full flex-col items-center justify-center bg-background shadow-sm md:px-12">
       <div className="mx-auto flex w-full items-center justify-between px-9 py-3">
         <Link
           href="/"

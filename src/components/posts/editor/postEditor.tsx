@@ -89,7 +89,7 @@ export default function PostEditor() {
           <EditorContent
             editor={editor}
             className={cn(
-              "w-full overflow-y-auto rounded-2xl bg-primary-foreground px-5 py-3 transition-[max-height] duration-500 ease-in-out",
+              "w-full overflow-y-auto rounded-2xl bg-background px-5 py-3 transition-[max-height] duration-500 ease-in-out",
               isDragActive ? "max-h-[30rem]" : "max-h-[20rem]",
               isDragActive && "outline-dashed outline-2 h-[30rem]",
             )}

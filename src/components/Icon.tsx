@@ -25,12 +25,15 @@ export default function Icon({ className, size = 30 }: IconProps) {
             strokeWidth="2"
             strokeLinecap="round"
             strokeLinejoin="round"
-            className={cn("lucide lucide-heart", className)}
+            className={cn(
+              "lucide lucide-heart text-black dark:text-white",
+              className,
+            )}
             color={theme == "dark" ? "white" : "black"}
           />
           <div className="flex">
             <h1
-              className=""
+              className="text-black dark:text-white"
               style={{ fontSize: `${textSize}px` }}
             >
               teension
