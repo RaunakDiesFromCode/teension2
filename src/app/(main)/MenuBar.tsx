@@ -1,7 +1,7 @@
 import { validateRequest } from "@/auth";
 import { Button } from "@/components/ui/button";
 import prisma from "@/lib/prisma";
-import { Dumbbell, Home, TreePalm } from "lucide-react";
+import { HandMetal, Home, TreePalm } from "lucide-react";
 import Link from "next/link";
 import NotificationsButton from "./NotificationsButton";
 import MessagesButton from "./MessagesButton";
@@ -41,21 +41,25 @@ export default async function MenuBar({ className }: MenuBarProps) {
           <span className="hidden lg:inline">Home</span>
         </Link>
       </Button>
+
       <NotificationsButton
         initialState={{ unreadCount: unreadNotificationsCount }}
       />
+
       <MessagesButton initialState={{ unreadCount: unreadMessagesCount }} />
+
       <Button
         variant="ghost"
         className="flex items-center justify-start gap-3"
         title="Home"
         asChild
       >
-        <Link href="/challenges">
-          <Dumbbell />
-          <span className="hidden lg:inline">Challenges</span>
+        <Link href="/mehbox" className="text-primary">
+          <HandMetal />
+          <span className="hidden lg:inline">MehBox</span>
         </Link>
       </Button>
+
       <Button
         variant="ghost"
         className="flex items-center justify-start gap-3"
