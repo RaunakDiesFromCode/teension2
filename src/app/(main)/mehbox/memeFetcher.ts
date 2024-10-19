@@ -2,21 +2,11 @@
 
 import { Meme } from "@/lib/types";
 
-export async function fetchMeme(): Promise<Meme> {
-  const response = await fetch("https://meme-api.com/gimme");
+export async function fetchMemes(): Promise<Meme[]> {
+  const response = await fetch("https://meme-api.com/gimme/5");
   if (!response.ok) {
-    throw new Error("Network response was not ok");
+    throw new Error("Failed to fetch memes");
   }
   const data = await response.json();
-
-  const meme: Meme = {
-    url: data.url,
-    title: data.title,
-    subreddit: data.subreddit,
-    author: data.author,
-    nsfw: data.nsfw,
-    postLink: data.postLink,
-  };
-
-  return meme;
+  return data.memes; // Adjust according to the API response
 }

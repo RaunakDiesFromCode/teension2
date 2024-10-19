@@ -6,6 +6,7 @@ import Link from "next/link";
 import NotificationsButton from "./NotificationsButton";
 import MessagesButton from "./MessagesButton";
 import streamServerClient from "@/lib/stream";
+import { CoolMode } from "@/components/ui/CoolButton";
 
 interface MenuBarProps {
   className?: string;
@@ -48,7 +49,7 @@ export default async function MenuBar({ className }: MenuBarProps) {
 
       <MessagesButton initialState={{ unreadCount: unreadMessagesCount }} />
 
-      <Button
+      <CoolMode
         variant="ghost"
         className="flex items-center justify-start gap-3"
         title="Home"
@@ -58,7 +59,7 @@ export default async function MenuBar({ className }: MenuBarProps) {
           <HandMetal />
           <span className="hidden lg:inline">MehBox</span>
         </Link>
-      </Button>
+      </CoolMode>
 
       <Button
         variant="ghost"

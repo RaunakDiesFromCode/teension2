@@ -348,12 +348,12 @@ export const tribesInfo: { [key in Tribe]: string } & {
   Jedi: "Rarest of all, with a legacy grand, They fight, they teach, with wisdom's hand.",
 };
 
+// src/lib/types.ts
 export interface Meme {
-  url: string;
+  id: string; // or number, based on your API response
   title: string;
+  url: string;
   subreddit: string;
   author: string;
-  nsfw: boolean;
   postLink: string;
-  tags?: string;
 }
