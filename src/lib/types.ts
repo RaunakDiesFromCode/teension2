@@ -347,3 +347,13 @@ export const tribesInfo: { [key in Tribe]: string } & {
     "They rule with might, in glory’s radiant light, Heroes to some, a noble sight.",
   Jedi: "Rarest of all, with a legacy grand, They fight, they teach, with wisdom's hand.",
 };
+
+export interface Meme {
+  url: string;
+  title: string;
+  subreddit: string;
+  author: string;
+  nsfw: boolean;
+  postLink: string;
+  tags?: string;
+}

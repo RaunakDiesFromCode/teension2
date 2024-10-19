@@ -15,6 +15,11 @@ const nextConfig = {
       },
       {
         protocol: "https",
+        hostname: "i.redd.it",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
         hostname: "cdn2.thecatapi.com",
         pathname: "/images/**",
       },
