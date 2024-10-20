@@ -27,7 +27,7 @@ export default function Posts({ post }: PostsProps) {
   const { user } = useSession();
 
   return (
-    <article className="group/post space-y-3 rounded-2xl bg-card p-5 shadow-[0_3px_15px_rgb(0,0,0,0.12)]">
+    <article className="group/post space-y-3 rounded-2xl bg-card p-5 mb-5 shadow-[0_3px_15px_rgb(0,0,0,0.12)]">
       <div className="flex justify-between gap-3">
         {" "}
         <Link
