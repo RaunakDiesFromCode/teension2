@@ -1,7 +1,7 @@
 "use client";
 
 import InfiniteScrollContainer from "@/components/InfiniteScrollContainer";
-import UserCard from "@/components/UserCard"; // Assuming you have a UserCard component
+import UserCard from "@/components/UserCard";
 import PostsLoadingSkeleton from "@/components/posts/PostsLoadingSkeleton";
 import Post from "@/components/posts/post";
 import kyInstance from "@/lib/ky";
@@ -49,8 +49,9 @@ export default function SearchResults({ query }: SearchResultsProps) {
     gcTime: 0,
   });
 
+  // Make sure users and posts are always arrays (default to empty if undefined)
   const posts = data?.pages.flatMap((page) => page.posts) || [];
-  const users = data?.pages.flatMap((page) => page.users) || [];
+  const users = data?.pages.flatMap((page) => page.users ?? []) || [];
 
   if (status === "pending") {
     return <PostsLoadingSkeleton />;
@@ -88,7 +89,9 @@ export default function SearchResults({ query }: SearchResultsProps) {
               }
             >
               {users.length > 0 ? (
-                users.map((user) => <UserCard key={user.id} user={user} />)
+                users.map(
+                  (user) => user && <UserCard key={user.id} user={user} />, // Add check to ensure 'user' exists
+                )
               ) : (
                 <p className="text-center text-muted-foreground">
                   No users found.
