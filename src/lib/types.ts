@@ -58,7 +58,7 @@ export type PostData = Prisma.PostGetPayload<{
 
 export interface PostsPage {
   posts: PostData[];
-  users: UserData[];
+  users?: UserData[];
   nextCursor: string | null;
 }
 
